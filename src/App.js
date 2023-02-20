@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
       <ThemeContextProvider>
         <Header />
-        <Homepage />
+        
 
         <Routes>
           <Route path="/" element= {<Homepage />} />
