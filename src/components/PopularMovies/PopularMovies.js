@@ -9,6 +9,11 @@ function PopularMovies() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const imageBase = process.env.REACT_APP_IMAGE_BASE;
 
+    //create an array for page numbers
+    const pageNumbers = [1,2,3,4,5,6,7,8,9,10]
+
+    const [page, setPage] = React.useState(1)
+
     const [upcomingMovies, setUpcomingMovies] = React.useState([])
     //create state to move through the movies
     
@@ -16,7 +21,7 @@ function PopularMovies() {
     React.useEffect(
         ()=>{
             //call api to get upcoming movie data
-            axios.get(`${baseUrl}/movie/popular?api_key=${apiKey}&page=1`)
+            axios.get(`${baseUrl}/movie/popular?api_key=${apiKey}&page=${page}`)
             .then(res =>{
                 console.log(res.data.results)
                 //store data in state
@@ -24,7 +29,7 @@ function PopularMovies() {
             })
             .catch(err => console.log(err))
 
-        }, []  //empty means it runs once when page loads
+        }, [page]  //dependency
     )
 
 
@@ -39,7 +44,12 @@ function PopularMovies() {
                     cardStyle="popular-card"/>)}
         </div>
         <div className='page-numbers'>
-            Page Numbers
+        <p>Select Page</p>
+            {
+                pageNumbers.map(num => 
+                <p key={num} onClick={()=>setPage(num)}>{num}</p>
+                )
+            }
         </div>
         </div>
   )
